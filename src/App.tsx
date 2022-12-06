@@ -7,7 +7,7 @@ enum TipoSorteio {
   GRUPOS
 };
 
-function ParticipantesComponent({participantes}: any) {
+function ParticipantesComponent({ participantes }: any) {
   return (
     <>
       <h1>Participantes</h1>
@@ -21,7 +21,7 @@ function ParticipantesComponent({participantes}: any) {
   );
 }
 
-function TipoSorteioComponent({tipoSorteio}: any) {
+function TipoSorteioComponent({ tipoSorteio }: any) {
   return (
     <>
       <h1>Tipo do sorteio</h1>
@@ -34,7 +34,7 @@ function TipoSorteioComponent({tipoSorteio}: any) {
   )
 }
 
-function ResultadoComponent({resultado}: any) {
+function ResultadoComponent({ resultado }: any) {
   return (
     <>
       <h1>Resultado</h1>
@@ -42,22 +42,30 @@ function ResultadoComponent({resultado}: any) {
         resultado.map((r: any) => (
           <p><span>{r[0]}</span> {"->"} <span>{r[1]}</span></p>
         ))
-      }      
+      }
     </>
   );
 }
 
+function sorteioSimples(participantes: any) {
+  const resultado = [];
+  for (let i = 0; i < participantes.length; i += 2) {
+    resultado.push([participantes[i], participantes[i+1]]);
+  }
+  return resultado;
+}
+
 function SorteioComponent() {
-  const participantes = ["Leonardo", "Catulo", "Jack", "Ryan"];
+  const participantes = ["Catulo", "Leonardo", "Jack", "Ryan"];
   const tipoSorteio = TipoSorteio.ALEATORIO;
-  const resultado = [["Leonardo", "Catulo"], ["Jack", "Ryan"]];
+  const resultado = sorteioSimples(participantes);
   return (
     <div className="App">
       <ParticipantesComponent participantes={participantes} />
-      <TipoSorteioComponent tipoSorteio={tipoSorteio}/>
+      <TipoSorteioComponent tipoSorteio={tipoSorteio} />
       <hr />
       <button>Sortear!</button>
-      <ResultadoComponent resultado={resultado}/>
+      <ResultadoComponent resultado={resultado} />
     </div>
   );
 }
