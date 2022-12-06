@@ -37,14 +37,14 @@ function ParticipantesComponent({ participantes, setParticipantes }: any) {
   );
 }
 
-function TipoSorteioComponent({ tipoSorteio }: any) {
+function TipoSorteioComponent({ tipoSorteio, setTipoSorteio }: any) {
   return (
     <>
       <h1>Tipo do sorteio</h1>
-      <select>
-        <option selected={tipoSorteio === TipoSorteio.ALEATORIO}>Aleatório</option>
-        <option selected={tipoSorteio === TipoSorteio.CIRCULAR}>Circular</option>
-        <option selected={tipoSorteio === TipoSorteio.GRUPOS}>Grupos</option>
+      <select defaultValue={tipoSorteio}>
+        <option value={TipoSorteio.ALEATORIO} onClick={() => setTipoSorteio(TipoSorteio.ALEATORIO)}>Aleatório</option>
+        <option value={TipoSorteio.CIRCULAR} onClick={() => setTipoSorteio(TipoSorteio.CIRCULAR)}>Circular</option>
+        <option value={TipoSorteio.GRUPOS} onClick={() => setTipoSorteio(TipoSorteio.GRUPOS)}>Grupos</option>
       </select>
     </>
   )
@@ -73,12 +73,12 @@ function sorteioSimples(participantes: any) {
 
 function SorteioComponent() {
   const [participantes, setParticipantes] = useState(["Leonardo", "Catulo", "Jack", "Ryan"]);
-  const tipoSorteio = TipoSorteio.ALEATORIO;
+  const [tipoSorteio, setTipoSorteio] = useState(TipoSorteio.ALEATORIO);
   const resultado = sorteioSimples(participantes);
   return (
     <div className="App">
       <ParticipantesComponent participantes={participantes} setParticipantes={setParticipantes} />
-      <TipoSorteioComponent tipoSorteio={tipoSorteio} />
+      <TipoSorteioComponent tipoSorteio={tipoSorteio} setTipoSorteio={setTipoSorteio} />
       <hr />
       <button>Sortear!</button>
       <ResultadoComponent resultado={resultado} />
