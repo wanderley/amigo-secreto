@@ -9,6 +9,15 @@ enum TipoSorteio {
 
 function ParticipantesComponent({ participantes, setParticipantes }: any) {
   const [nome, setNome] = useState("");
+  const remove = (i: any) => {
+    const resultado = [];
+    for (let j = 0; j < participantes.length; j++) {
+      if (j !== i) {
+        resultado.push(participantes[j]);
+      }
+    }
+    setParticipantes(resultado);
+  };
   return (
     <>
       <h1>Participantes</h1>
@@ -20,8 +29,8 @@ function ParticipantesComponent({ participantes, setParticipantes }: any) {
         />
         <button onClick={() => setParticipantes([nome, ...participantes])}>Adicionar</button></p>
       {
-        participantes.map((e: any) => (
-          <p>{e} <button>Remover</button></p>
+        participantes.map((e: any, i: any) => (
+          <p>{e} <button onClick={() => remove(i)}>Remover</button></p>
         ))
       }
     </>
