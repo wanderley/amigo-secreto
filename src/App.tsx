@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-function App() {
+function Menu() {
   return (
     <div className="App">
       <button>Aleatório</button>
@@ -11,4 +11,6 @@ function App() {
   );
 }
 
-export default App;
+export default function App() {
+  return <Menu />;
+}
