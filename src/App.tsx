@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 enum TipoSorteio {
@@ -7,11 +7,18 @@ enum TipoSorteio {
   GRUPOS
 };
 
-function ParticipantesComponent({ participantes }: any) {
+function ParticipantesComponent({ participantes, setParticipantes }: any) {
+  const [nome, setNome] = useState("");
   return (
     <>
       <h1>Participantes</h1>
-      <p><input type="text" /><button>Adicionar</button></p>
+      <p>
+        <input
+          type="text"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+        />
+        <button onClick={() => setParticipantes([nome, ...participantes])}>Adicionar</button></p>
       {
         participantes.map((e: any) => (
           <p>{e} <button>Remover</button></p>
@@ -50,18 +57,18 @@ function ResultadoComponent({ resultado }: any) {
 function sorteioSimples(participantes: any) {
   const resultado = [];
   for (let i = 0; i < participantes.length; i += 2) {
-    resultado.push([participantes[i], participantes[i+1]]);
+    resultado.push([participantes[i], participantes[i + 1]]);
   }
   return resultado;
 }
 
 function SorteioComponent() {
-  const participantes = ["Catulo", "Leonardo", "Jack", "Ryan"];
+  const [participantes, setParticipantes] = useState(["Leonardo", "Catulo", "Jack", "Ryan"]);
   const tipoSorteio = TipoSorteio.ALEATORIO;
   const resultado = sorteioSimples(participantes);
   return (
     <div className="App">
-      <ParticipantesComponent participantes={participantes} />
+      <ParticipantesComponent participantes={participantes} setParticipantes={setParticipantes} />
       <TipoSorteioComponent tipoSorteio={tipoSorteio} />
       <hr />
       <button>Sortear!</button>
