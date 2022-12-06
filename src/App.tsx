@@ -63,7 +63,7 @@ function ResultadoComponent({ resultado }: any) {
   );
 }
 
-function sorteioSimples(participantes: any) {
+function sorteioSimples(participantes: any): any {
   const resultado = [];
   for (let i = 0; i < participantes.length; i += 2) {
     resultado.push([participantes[i], participantes[i + 1]]);
@@ -74,13 +74,21 @@ function sorteioSimples(participantes: any) {
 function SorteioComponent() {
   const [participantes, setParticipantes] = useState(["Leonardo", "Catulo", "Jack", "Ryan"]);
   const [tipoSorteio, setTipoSorteio] = useState(TipoSorteio.ALEATORIO);
-  const resultado = sorteioSimples(participantes);
+  const [resultado, setResultado] = useState([]);
+  const sortear = () => {
+    switch(tipoSorteio){
+      case TipoSorteio.ALEATORIO:
+      case TipoSorteio.CIRCULAR:
+      case TipoSorteio.GRUPOS:
+        setResultado(sorteioSimples(participantes));
+    }
+  };
   return (
     <div className="App">
       <ParticipantesComponent participantes={participantes} setParticipantes={setParticipantes} />
       <TipoSorteioComponent tipoSorteio={tipoSorteio} setTipoSorteio={setTipoSorteio} />
       <hr />
-      <button>Sortear!</button>
+      <button onClick={sortear}>Sortear!</button>
       <ResultadoComponent resultado={resultado} />
     </div>
   );
