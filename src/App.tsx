@@ -1,57 +1,67 @@
 import React from 'react';
 import './App.css';
 
-function Participantes() {
+enum TipoSorteio {
+  ALEATORIO,
+  CIRCULAR,
+  GRUPOS
+};
+
+function ParticipantesComponent({participantes}: any) {
   return (
     <>
       <h1>Participantes</h1>
       <p><input type="text" /><button>Adicionar</button></p>
-      <p>Leonardo <button>Remover</button></p>
-      <p>Catulo <button>Remover</button></p>
-      <p>Jack <button>Remover</button></p>
-      <p>Ryan <button>Remover</button></p>
-      <p>Moises <button>Remover</button></p>
+      {
+        participantes.map((e: any) => (
+          <p>{e} <button>Remover</button></p>
+        ))
+      }
     </>
   );
 }
 
-function TipoSorteio() {
+function TipoSorteioComponent({tipoSorteio}: any) {
   return (
     <>
       <h1>Tipo do sorteio</h1>
       <select>
-        <option>Aleatório</option>
-        <option>Circular</option>
-        <option>Grupos</option>
+        <option selected={tipoSorteio === TipoSorteio.ALEATORIO}>Aleatório</option>
+        <option selected={tipoSorteio === TipoSorteio.CIRCULAR}>Circular</option>
+        <option selected={tipoSorteio === TipoSorteio.GRUPOS}>Grupos</option>
       </select>
     </>
   )
 }
 
-function Resultado() {
+function ResultadoComponent({resultado}: any) {
   return (
     <>
       <h1>Resultado</h1>
-      <table>
-        <tr><td>Leonardo</td><td>Catulo</td></tr>
-        <tr><td>Jack</td><td>Ryan</td></tr>
-      </table>
+      {
+        resultado.map((r: any) => (
+          <p><span>{r[0]}</span> {"->"} <span>{r[1]}</span></p>
+        ))
+      }      
     </>
   );
 }
 
-function Sorteio() {
+function SorteioComponent() {
+  const participantes = ["Leonardo", "Catulo", "Jack", "Ryan"];
+  const tipoSorteio = TipoSorteio.ALEATORIO;
+  const resultado = [["Leonardo", "Catulo"], ["Jack", "Ryan"]];
   return (
     <div className="App">
-      <Participantes />
-      <TipoSorteio />
+      <ParticipantesComponent participantes={participantes} />
+      <TipoSorteioComponent tipoSorteio={tipoSorteio}/>
       <hr />
       <button>Sortear!</button>
-      <Resultado />
+      <ResultadoComponent resultado={resultado}/>
     </div>
   );
 }
 
 export default function App() {
-  return <Sorteio />;
+  return <SorteioComponent />;
 }
