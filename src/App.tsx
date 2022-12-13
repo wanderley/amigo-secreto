@@ -76,7 +76,9 @@ function sorteioSimples(participantes: any): any {
 }
 
 function sorteioCircular(participantes: any): any {
-
+  if (participantes.length <= 1) {
+    return [];
+  }
   const resultado = [];
   for (let i = 0; i < participantes.length - 1; i++) {
     resultado.push([participantes[i], participantes[i + 1]]);
