@@ -71,16 +71,14 @@ function sorteioSimples(participantes: any): any {
   return resultado;
 }
 
-function sorteioCircular(participantes: any):any{
-const resultado = [];
-const parcial = participantes;
-const listaCircular = [];
-listaCircular.push(parcial[parcial.length - 1], parcial.pop())
-console.log(listaCircular);
-for (let i = 0; i < participantes.length; i += 1) {
-  resultado.push([participantes[i], listaCircular[i]]);
-}
-return resultado;
+function sorteioCircular(participantes: any): any {
+
+  const resultado = [];
+  for (let i = 0; i < participantes.length - 1; i++) {
+    resultado.push([participantes[i], participantes[i + 1]]);
+  }
+  resultado.push([participantes[participantes.length - 1], participantes[0]]);
+  return resultado;
 }
 
 function SorteioComponent() {
@@ -88,10 +86,14 @@ function SorteioComponent() {
   const [tipoSorteio, setTipoSorteio] = useState(TipoSorteio.ALEATORIO);
   const [resultado, setResultado] = useState([]);
   const sortear = () => {
-    switch(tipoSorteio){
+    console.log(tipoSorteio);
+    switch (tipoSorteio) {
       case TipoSorteio.ALEATORIO:
+        setResultado(sorteioSimples(participantes));
+        break;
       case TipoSorteio.CIRCULAR:
         setResultado(sorteioCircular(participantes));
+        break;
       case TipoSorteio.GRUPOS:
         setResultado(sorteioSimples(participantes));
     }
