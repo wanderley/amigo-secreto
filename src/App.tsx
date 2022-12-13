@@ -86,7 +86,6 @@ function SorteioComponent() {
   const [tipoSorteio, setTipoSorteio] = useState(TipoSorteio.ALEATORIO);
   const [resultado, setResultado] = useState([]);
   const sortear = () => {
-    console.log(tipoSorteio);
     switch (tipoSorteio) {
       case TipoSorteio.ALEATORIO:
         setResultado(sorteioSimples(participantes));
