@@ -1,3 +1,4 @@
+import { join } from 'path';
 import React, { useState } from 'react';
 import './App.css';
 
@@ -87,9 +88,26 @@ function sorteioCircular(participantes: any): any {
   return resultado;
 }
 
+function sorteioGrupos(participantes: any): any {
+const p1 = [];
+const p2 = [];
+for (let i = 0 ; i < participantes.length / 2; i++) {
+  p1.push([participantes[i]]);
+};
+for (let j = participantes.length / 2 ; j <= participantes.length - 1; j++) {
+  p2.push([participantes[j]]);
+};
+const resultado = sorteioCircular(p1);
+const resultado2 = sorteioCircular(p2);
+for (let k = 0; k < resultado2.length; k++) {
+  resultado.push(resultado2[k]);
+}; 
+  return resultado;
+}
+
 function SorteioComponent() {
   const [participantes, setParticipantes] = useState(["Leonardo", "Catulo", "Jack", "Ryan"]);
-  const [tipoSorteio, setTipoSorteio] = useState(TipoSorteio.ALEATORIO);
+  const [tipoSorteio, setTipoSorteio] = useState(TipoSorteio.GRUPOS);
   const [resultado, setResultado] = useState([]);
   const sortear = () => {
     switch (tipoSorteio) {
@@ -100,7 +118,7 @@ function SorteioComponent() {
         setResultado(sorteioCircular(participantes));
         break;
       case TipoSorteio.GRUPOS:
-        setResultado(sorteioSimples(participantes));
+        setResultado(sorteioGrupos(participantes));
     }
   };
   return (
