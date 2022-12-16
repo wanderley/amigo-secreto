@@ -95,7 +95,7 @@ const half = Math.floor(participantes.length / 2);
 for (let i = 0 ; i < half; i++) {
   p1.push([participantes[i]]);
 };
-for (let j = half ; j <= half - 1; j++) {
+for (let j = half ; j <= participantes.length - 1; j++) {
   p2.push([participantes[j]]);
 };
 const resultado = sorteioCircular(p1);
