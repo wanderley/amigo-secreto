@@ -91,10 +91,11 @@ function sorteioCircular(participantes: any): any {
 function sorteioGrupos(participantes: any): any {
 const p1 = [];
 const p2 = [];
-for (let i = 0 ; i < participantes.length / 2; i++) {
+const half = Math.floor(participantes.length / 2);
+for (let i = 0 ; i < half; i++) {
   p1.push([participantes[i]]);
 };
-for (let j = participantes.length / 2 ; j <= participantes.length - 1; j++) {
+for (let j = half ; j <= half - 1; j++) {
   p2.push([participantes[j]]);
 };
 const resultado = sorteioCircular(p1);
