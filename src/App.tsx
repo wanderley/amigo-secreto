@@ -92,20 +92,10 @@ function sorteioCircular(participantes: any): any {
 
 // sorteioGrupos: Array -> Array
 function sorteioGrupos(participantes: any): any {
-const p1 = [];
-const p2 = [];
 const half = Math.floor(participantes.length / 2);
-for (let i = 0 ; i < half; i++) {
-  p1.push([participantes[i]]);
-};
-for (let j = half ; j <= participantes.length - 1; j++) {
-  p2.push([participantes[j]]);
-};
-const resultado = sorteioCircular(p1);
-const resultado2 = sorteioCircular(p2);
-for (let k = 0; k < resultado2.length; k++) {
-  resultado.push(resultado2[k]);
-}; 
+  const resultado = sorteioCircular(participantes.slice(0, half));
+  const resultado2 = sorteioCircular(participantes.slice(half, participantes.length));
+  resultado.push(...resultado2);
   return resultado;
 }
 
