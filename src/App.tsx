@@ -10,8 +10,10 @@ enum TipoSorteio {
 function ParticipantesComponent({ participantes, setParticipantes }: any) {
   const [nome, setNome] = useState("");
   const adiciona = () => {
-    setParticipantes([nome, ...participantes]);
-    setNome("");
+    if (nome !== "") {
+      setParticipantes([nome, ...participantes]);
+      setNome("");
+    }
   };
   const remove = (i: any) => {
     const resultado = [];
@@ -87,6 +89,15 @@ function sorteioCircular(participantes: any): any {
   return resultado;
 }
 
+// sorteioGrupos: Array -> Array
+function sorteioGrupos(participantes: any): any {
+  const half = Math.floor(participantes.length / 2);
+  const resultado = sorteioCircular(participantes.slice(0, half));
+  const resultado2 = sorteioCircular(participantes.slice(half, participantes.length));
+  resultado.push(...resultado2);
+  return resultado;
+}
+
 function SorteioComponent() {
   const [participantes, setParticipantes] = useState(["Leonardo", "Catulo", "Jack", "Ryan"]);
   const [tipoSorteio, setTipoSorteio] = useState(TipoSorteio.ALEATORIO);
@@ -100,7 +111,7 @@ function SorteioComponent() {
         setResultado(sorteioCircular(participantes));
         break;
       case TipoSorteio.GRUPOS:
-        setResultado(sorteioSimples(participantes));
+        setResultado(sorteioGrupos(participantes));
     }
   };
   return (
